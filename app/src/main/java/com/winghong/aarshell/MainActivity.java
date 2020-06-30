@@ -1,9 +1,16 @@
 package com.winghong.aarshell;
 
+import android.content.Context;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.support.constraint.ConstraintLayout;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 
+import com.blankj.utilcode.util.ColorUtils;
+import com.itech.common.MobiLog;
 import com.itech.common.Mobip;
 import com.itech.common.SdkConfigurationp;
 import com.itech.common.SdkInitializationListener;
@@ -11,15 +18,21 @@ import com.itech.export.MobiSplashListener;
 import com.itech.export.SplashErrorCode;
 import com.itech.splash.RMobiSplash;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
+
+    private ConstraintLayout rootLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        rootLayout = findViewById(R.id.container);
+        // testCodeCreateView(this);
+
         SdkConfigurationp configurationp = new SdkConfigurationp.Builder("93FA65EB53E4439EA015A722447BE460")
                 .withDelayImprFirstOpen(2000)
+                .withLogLevel(MobiLog.LogLevel.DEBUG)
                 .build();
         Mobip.initializeSdk(this, configurationp, new SdkInitializationListener() {
 
@@ -30,43 +43,85 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    private void testCodeCreateView(Context context) {
+        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(
+                RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT);
+        RelativeLayout splashLayout = new RelativeLayout(context);
+        splashLayout.setLayoutParams(layoutParams);
+        splashLayout.setBackgroundColor(ColorUtils.getColor(R.color.colorPrimaryDark));
+
+        // TODO: 后续检查该view是否存在控制显示
+        ImageView splashView = new ImageView(context);
+        splashView.setBackgroundColor(ColorUtils.getColor(R.color.colorAccent));
+        splashLayout.setVisibility(View.VISIBLE);
+        splashLayout.addView(splashView,RelativeLayout.LayoutParams.MATCH_PARENT,RelativeLayout.LayoutParams.MATCH_PARENT);
+        layoutParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(layoutParams);
+        params.width = 50;
+        params.height = 50;
+        params.setMargins(25,25,25,25);
+        params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+        ProgressBar progressBar = new ProgressBar(context);
+        progressBar.setBackgroundColor(ColorUtils.getColor(R.color.colorPrimary));
+        splashLayout.addView(progressBar,params);
+
+        /*layoutParams.width = RelativeLayout.LayoutParams.MATCH_PARENT;
+        layoutParams.height = 100;
+        RelativeLayout bottomLayout = new RelativeLayout(context);
+        bottomLayout.setLayoutParams(layoutParams);
+        bottomLayout.setGravity(RelativeLayout.ALIGN_PARENT_BOTTOM);
+        //bottomLayout.setPadding(25,25,25,25);
+        bottomLayout.setLayoutParams(layoutParams);
+        bottomLayout.setBackgroundColor(ColorUtils.getColor(R.color.colorPrimary));
+        splashLayout.addView(bottomLayout,layoutParams);
+        */
+
+        ConstraintLayout layout = findViewById(R.id.container);
+        layout.removeAllViews();
+        layout.addView(splashLayout);
+    }
+
     private void logic() {
         RMobiSplash splash = new RMobiSplash(this);
         splash.loadSplash("A3F1EC9EE2AF462C8AA2A74AD883CCE3", new MobiSplashListener() {
             @Override
             public void onError(SplashErrorCode splashErrorCode) {
-                System.out.println("onErr:" + splashErrorCode.getMessage());
+                PrintLog.toLog("onErr:" + splashErrorCode.getMessage()+",code:"+splashErrorCode.getCode());
             }
 
             @Override
             public void onSplashLoad(View view) {
-                System.out.println("onSplashLoad" + view);
+                toLog("onSplashLoad" + view);
+                if (view!=null){
+                    rootLayout.removeAllViews();
+                    rootLayout.addView(view);
+                }
             }
 
             @Override
             public void onTimeout() {
-                System.out.println("timeout");
+                toLog("timeout");
             }
 
             @Override
             public void onImpression(View view) {
-                System.out.println("onImpression" + view);
+                toLog("onImpression" + view);
             }
 
             @Override
             public void onClick(View view) {
-                System.out.println("onClick" + view);
+                toLog("onClick" + view);
             }
 
             @Override
             public void onSkip() {
-                System.out.println("onSkip");
+                toLog("onSkip");
             }
 
             @Override
             public void onTimeOver() {
-                System.out.println("onTimeOver");
+                toLog("onTimeOver");
             }
-        }, 1000);
+        }, 3000);
     }
 }

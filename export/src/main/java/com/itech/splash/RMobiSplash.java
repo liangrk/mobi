@@ -2,9 +2,8 @@ package com.itech.splash;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
-import android.view.View;
 
-import com.itech.constants.Constants;
+import com.itech.constants.RConstants;
 import com.itech.core.PluginManager;
 import com.itech.export.MobiSplashListener;
 
@@ -29,7 +28,7 @@ public class RMobiSplash {
     public RMobiSplash(@NonNull Context context) {
         try {
             classLoader = PluginManager.getInstance().getClassLoader();
-            splashClass = classLoader.loadClass(Constants.CLA_SPLASH);
+            splashClass = classLoader.loadClass(RConstants.CLA_SPLASH);
             splash = splashClass.getConstructor(Context.class)
                     .newInstance(context);
         } catch (ClassNotFoundException | NoSuchMethodException e) {
@@ -47,7 +46,7 @@ public class RMobiSplash {
                            @NonNull MobiSplashListener listener,
                            @NonNull int timeout) {
         try {
-            splashClass = classLoader.loadClass(Constants.CLA_SPLASH);
+            splashClass = classLoader.loadClass(RConstants.CLA_SPLASH);
             Method[] methods = splashClass.getMethods();
 //            for (int i = 0; i < ; i++) {
 //

@@ -4,8 +4,10 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 
 import com.blankj.utilcode.util.ResourceUtils;
+import com.didi.virtualapk.internal.LoadedPlugin;
 import com.itech.R;
 import com.itech.common.utils.PathUtils;
+import com.itech.constants.RConstants;
 
 import java.io.File;
 
@@ -41,17 +43,18 @@ public class PluginManager {
     }
 
     public void loadPath(@NonNull Context context) throws Exception {
+        com.didi.virtualapk.PluginManager.getInstance(context).init();
         String pathPrefix = PathUtils.getAppDataPath(context);
         File hotfixApk = new File(pathPrefix + hotfixPath);
 
         if (!hotfixApk.exists()) {
             //File defApk = new File(pathPrefix + defaultPath);
             boolean result = copyApk(context, pathPrefix + defaultPath);
-            File apk = new File(pathPrefix + defaultPath);
-            if (!result) {
-                System.out.println("temp_log: apk copy failed?: file:" + apk.exists());
-            }
 
+            if (!result) {
+                System.out.println("temp_log: apk copy failed?: file:");
+            }
+            File apk = new File(pathPrefix + defaultPath);
             loadPluginApk(context, apk);
             return;
         }
@@ -67,7 +70,11 @@ public class PluginManager {
     }
 
     private void loadPluginApk(Context context, File apk) throws Exception {
-        classLoader = Core.createClassLoader(context, apk, context.getClassLoader());
+//        classLoader = Core.createClassLoader(context, apk, context.getClassLoader());
+        com.didi.virtualapk.PluginManager instance = com.didi.virtualapk.PluginManager.getInstance(context);
+        instance.loadPlugin(apk);
+        LoadedPlugin loadedPlugin = instance.getLoadedPlugin(RConstants.PKG_SDK);
+        classLoader = loadedPlugin.getClassLoader();
     }
 
     public ClassLoader getClassLoader() {

@@ -3,7 +3,7 @@ package com.itech.common;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
-import com.itech.constants.Constants;
+import com.itech.constants.RConstants;
 import com.itech.core.PluginManager;
 
 import java.lang.reflect.Method;
@@ -26,17 +26,22 @@ public class Mobip {
             manager.loadPath(context);
             ClassLoader classLoader = manager.getClassLoader();
             // 1.copy已有的configuration 到反射对象中.
-            Class builderClazz = classLoader.loadClass(Constants.CLA_SDK_CONFIGURATION_BUILDER);
+            Class builderClazz = classLoader.loadClass(RConstants.CLA_SDK_CONFIGURATION_BUILDER);
             Object builderObj = builderClazz.getConstructor(String.class)
                     .newInstance(configuration.getUnitId());
-            // build
+
             Method withDelayImprFirstOpen = builderClazz.getMethod("withDelayImprFirstOpen", long.class);
             withDelayImprFirstOpen.invoke(builderObj, configuration.getDelayImprFirstOpen());
+
+            MobiLog.LogLevel level = configuration.getLevel();
+            Method logLevel = builderClazz.getMethod("withLogLevel", int.class);
+            logLevel.invoke(builderObj, level == MobiLog.LogLevel.DEBUG ? 0 : 1);
+
             Method buildMethon = builderClazz.getMethod("build");
-            Object config = buildMethon.invoke(builderObj, null);
+            Object config = buildMethon.invoke(builderObj);
 
             // init ref.
-            Class<?> mobi = classLoader.loadClass(Constants.CLA_MOBI);
+            Class<?> mobi = classLoader.loadClass(RConstants.CLA_MOBI);
             Method initializeSdk = mobi.getMethod("initializeSdk", Context.class, Object.class, SdkInitializationListener.class);
             initializeSdk.invoke(null, context, config, sdkInitializationListener);
         } catch (Exception e) {
