@@ -21,6 +21,7 @@ public class Mobip {
     public static void initializeSdk(@NonNull Context context,
                                      @NonNull final SdkConfigurationp configuration,
                                      @NonNull final SdkInitializationListener sdkInitializationListener) {
+        //SdkInitializationListener listener = (SdkInitializationListener) sdkInitializationListener;
         try {
             PluginManager manager = PluginManager.getInstance();
             manager.loadPath(context);

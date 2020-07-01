@@ -3,6 +3,7 @@ package com.itech.core;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
+import com.blankj.utilcode.util.FileUtils;
 import com.blankj.utilcode.util.ResourceUtils;
 import com.didi.virtualapk.internal.LoadedPlugin;
 import com.itech.R;
@@ -49,11 +50,15 @@ public class PluginManager {
 
         if (!hotfixApk.exists()) {
             //File defApk = new File(pathPrefix + defaultPath);
-            boolean result = copyApk(context, pathPrefix + defaultPath);
-
-            if (!result) {
-                System.out.println("temp_log: apk copy failed?: file:");
+            if (!FileUtils.isFileExists(pathPrefix + defaultPath)){
+                boolean result = copyApk(context, pathPrefix + defaultPath);
+                if (!result) {
+                    System.out.println("temp_log: apk copy failed?: file:");
+                }
+            }else {
+                System.out.println("文件存在 无需copy");
             }
+
             File apk = new File(pathPrefix + defaultPath);
             loadPluginApk(context, apk);
             return;
@@ -72,7 +77,9 @@ public class PluginManager {
     private void loadPluginApk(Context context, File apk) throws Exception {
 //        classLoader = Core.createClassLoader(context, apk, context.getClassLoader());
         com.didi.virtualapk.PluginManager instance = com.didi.virtualapk.PluginManager.getInstance(context);
-        instance.loadPlugin(apk);
+        if (instance.getLoadedPlugin(RConstants.PKG_SDK) == null){
+            instance.loadPlugin(apk);
+        }
         LoadedPlugin loadedPlugin = instance.getLoadedPlugin(RConstants.PKG_SDK);
         classLoader = loadedPlugin.getClassLoader();
     }

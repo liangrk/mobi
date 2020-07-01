@@ -20,7 +20,6 @@ import java.lang.reflect.Method;
  */
 public class RMobiSplash {
 
-    private Context context;
     private ClassLoader classLoader;
     private Object splash;
     private Class<?> splashClass;
@@ -47,10 +46,6 @@ public class RMobiSplash {
                            @NonNull int timeout) {
         try {
             splashClass = classLoader.loadClass(RConstants.CLA_SPLASH);
-            Method[] methods = splashClass.getMethods();
-//            for (int i = 0; i < ; i++) {
-//
-//            }
             Method loadSplashMet = splashClass.getMethod("loadSplash",
                     String.class, MobiSplashListener.class, int.class);
             loadSplashMet.invoke(splash,unitId,listener,timeout);

@@ -14,11 +14,12 @@ import com.itech.common.MobiLog;
 import com.itech.common.Mobip;
 import com.itech.common.SdkConfigurationp;
 import com.itech.common.SdkInitializationListener;
+import com.itech.core.PluginManager;
 import com.itech.export.MobiSplashListener;
 import com.itech.export.SplashErrorCode;
 import com.itech.splash.RMobiSplash;
 
-public class MainActivity extends BaseActivity {
+public class SplashActivity extends BaseActivity {
 
     private ConstraintLayout rootLayout;
 
@@ -30,17 +31,17 @@ public class MainActivity extends BaseActivity {
         rootLayout = findViewById(R.id.container);
         // testCodeCreateView(this);
 
-        SdkConfigurationp configurationp = new SdkConfigurationp.Builder("93FA65EB53E4439EA015A722447BE460")
-                .withDelayImprFirstOpen(2000)
-                .withLogLevel(MobiLog.LogLevel.DEBUG)
-                .build();
-        Mobip.initializeSdk(this, configurationp, new SdkInitializationListener() {
-
-            @Override
-            public void onInitializationFinished() {
-                logic();
-            }
-        });
+//        SdkConfigurationp configurationp = new SdkConfigurationp.Builder("93FA65EB53E4439EA015A722447BE460")
+//                .withLogLevel(MobiLog.LogLevel.DEBUG)
+//                .withDelayImprFirstOpen(2000)
+//                .build();
+//
+//        Mobip.initializeSdk(this, configurationp, new SdkInitializationListener() {
+//            @Override
+//            public void onInitializationFinished() {
+//                logic();
+//            }
+//        });
     }
 
     private void testCodeCreateView(Context context) {
@@ -81,7 +82,20 @@ public class MainActivity extends BaseActivity {
         layout.addView(splashLayout);
     }
 
-    private void logic() {
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        PluginManager.getInstance().getClassLoader().clearAssertionStatus();
+    }
+
+    @Override
+    protected String setUnitId() {
+        return "A3F1EC9EE2AF462C8AA2A74AD883CCE3";
+    }
+
+    @Override
+    protected void logic() {
+        toLog("mobi init success in:"+this.getClass().getSimpleName());
         RMobiSplash splash = new RMobiSplash(this);
         splash.loadSplash("A3F1EC9EE2AF462C8AA2A74AD883CCE3", new MobiSplashListener() {
             @Override

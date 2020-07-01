@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="10dp"
+    android:gravity="center_horizontal"
+    tools:context=".LogicActivity">
+
+    <Button
+        android:id="@+id/btn_splash"
+        android:text="splash"
+        android:textAllCaps="false"
+        android:onClick="loadSplash"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <Button
+        android:id="@+id/btn_mobiview"
+        android:text="banner"
+        android:textAllCaps="false"
+        android:onClick="loadBanner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <Button
+        android:id="@+id/btn_interstitial"
+        android:text="interstitial"
+        android:textAllCaps="false"
+        android:onClick="loadInterstitial"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <Button
+        android:id="@+id/btn_native"
+        android:text="native"
+        android:textAllCaps="false"
+        android:onClick="loadNative"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <Button
+        android:id="@+id/btn_native_video"
+        android:text="native video"
+        android:textAllCaps="false"
+        android:onClick="loadNativeVideo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <Button
+        android:id="@+id/btn_reward_video"
+        android:text="reward video"
+        android:textAllCaps="false"
+        android:onClick="loadRewardVideo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+</LinearLayout>

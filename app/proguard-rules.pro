@@ -20,6 +20,10 @@
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
 
+# support pkg
+-dontwarn android.support.v7.**
+-keep class android.support.v7.** { *; }
+-keep interface android.support.v7.** { *; }
 # virtualapk.
 -keep class com.didi.virtualapk.internal.VAInstrumentation { *; }
 -keep class com.didi.virtualapk.internal.PluginContentResolver { *; }

@@ -1,5 +1,29 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.itech">
 
+    <application>
+        <activity
+            android:name="com.itech.mobile.MbActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:theme="@style/MoPubFullscreenTheme" />
+        <activity
+            android:name="com.itech.mobile.MdActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:theme="@style/MoPubFullscreenTheme" />
+
+        <activity
+            android:name="com.itech.common.MBrowser"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:theme="@style/MoPubFullscreenTheme" />
+        <activity
+            android:name="com.itech.mobile.VideoPlayerActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:theme="@style/MoPubFullscreenTheme" />
+
+        <activity
+            android:name="com.itech.mobile.RewardedMraidActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:theme="@style/MoPubFullscreenTheme" />
+    </application>
 
 </manifest>
