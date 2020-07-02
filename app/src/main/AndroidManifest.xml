@@ -15,10 +15,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-
-        <activity android:name=".BannerActivity"
-            android:configChanges="orientation|screenSize"/>
-
+        <activity android:name=".InterstitialActivity"></activity>
+        <activity
+            android:name=".BannerActivity"
+            android:configChanges="orientation|screenSize" />
         <activity android:name=".LogicActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -26,15 +26,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SplashActivity">
-
-        </activity>
-
-        <!--        <activity-->
-        <!--            android:name="com.itech.common.MBrowser"-->
-        <!--            android:configChanges="keyboardHidden|orientation|screenSize"-->
-        <!--            android:theme="@style/MoPubFullscreenTheme"-->
-        <!--            tools:ignore="MissingClass" />-->
+        <activity android:name=".SplashActivity"></activity>
     </application>
 
 </manifest>

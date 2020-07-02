@@ -24,6 +24,16 @@
             android:name="com.itech.mobile.RewardedMraidActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:theme="@style/MoPubFullscreenTheme" />
+
+        <provider
+            android:name="com.itech.download.DownloadFileProvider"
+            android:authorities="${applicationId}.DownloadFileProvider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/download_files_public"/>
+        </provider>
     </application>
 
 </manifest>

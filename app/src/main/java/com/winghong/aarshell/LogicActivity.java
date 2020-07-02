@@ -42,7 +42,7 @@ public class LogicActivity extends AppCompatActivity {
     }
 
     public void loadInterstitial(View view) {
-
+        ActivityUtils.startActivity(InterstitialActivity.class);
     }
 
     public void loadNative(View view) {

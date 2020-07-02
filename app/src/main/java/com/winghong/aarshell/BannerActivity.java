@@ -6,7 +6,6 @@ import android.widget.FrameLayout;
 
 import com.itech.component.MobiSize;
 import com.itech.component.MobiView;
-import com.itech.export.BanListener;
 import com.itech.export.MobiErrorCode;
 
 public class BannerActivity extends BaseActivity {

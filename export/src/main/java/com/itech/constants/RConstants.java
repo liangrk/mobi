@@ -19,4 +19,5 @@ public class RConstants {
     public static final String CLA_SPLASH = "com.itech.splash.MobiSplash";
 
     public static final String CLA_MOBIVIEW = "com.itech.mobile.MobiView";
+    public static final String CLA_MOBIINTER = "com.itech.mobile.MobiInters";
 }
