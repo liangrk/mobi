@@ -44,6 +44,7 @@
         android:id="@+id/btn_native_video"
         android:text="native video"
         android:textAllCaps="false"
+        android:visibility="gone"
         android:onClick="loadNativeVideo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>

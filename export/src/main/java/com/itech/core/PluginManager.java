@@ -44,7 +44,7 @@ public class PluginManager {
     }
 
     public void loadPath(@NonNull Context context) throws Exception {
-        com.didi.virtualapk.PluginManager.getInstance(context).init();
+        com.didi.virtualapk.PluginManager.getInstance(context.getApplicationContext()).init();
         String pathPrefix = PathUtils.getAppDataPath(context);
         File hotfixApk = new File(pathPrefix + hotfixPath);
 

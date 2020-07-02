@@ -1,5 +1,7 @@
 package com.itech.export;
 
+import android.support.annotation.NonNull;
+
 /**
  * <pre>
  *     @author : wing-hong
@@ -8,26 +10,25 @@ package com.itech.export;
  *     @desc   :
  * </pre>
  */
-public class SplashErrorCode {
+@Deprecated
+public class SplashErrorCode implements MoPubError {
 
-    private String message;
-    private int code;
+    private final String message;
+    private final int code;
 
     public SplashErrorCode(String message, int code) {
         this.message = message;
         this.code = code;
     }
 
+    @NonNull
     @Override
-    public String toString() {
+    public final String toString() {
         return message;
     }
 
-    public String getMessage() {
-        return message;
-    }
-
-    public int getCode() {
-        return code;
+    @Override
+    public int getIntCode() {
+        return 0;
     }
 }

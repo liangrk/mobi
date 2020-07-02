@@ -11,7 +11,7 @@ import android.view.View;
  * </pre>
  */
 public interface MobiSplashListener {
-    void onError(SplashErrorCode splashErrorCode);
+    void onError(int splashErrorCode,String msg);
 
     void onSplashLoad(View view);
 

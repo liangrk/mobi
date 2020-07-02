@@ -99,8 +99,8 @@ public class SplashActivity extends BaseActivity {
         RMobiSplash splash = new RMobiSplash(this);
         splash.loadSplash("A3F1EC9EE2AF462C8AA2A74AD883CCE3", new MobiSplashListener() {
             @Override
-            public void onError(SplashErrorCode splashErrorCode) {
-                PrintLog.toLog("onErr:" + splashErrorCode.getMessage()+",code:"+splashErrorCode.getCode());
+            public void onError(int splashErrorCode,String msg) {
+                PrintLog.toLog("onErr:" + msg+",code:"+splashErrorCode);
             }
 
             @Override

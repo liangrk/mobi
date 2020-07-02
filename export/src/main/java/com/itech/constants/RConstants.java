@@ -20,4 +20,8 @@ public class RConstants {
 
     public static final String CLA_MOBIVIEW = "com.itech.mobile.MobiView";
     public static final String CLA_MOBIINTER = "com.itech.mobile.MobiInters";
+
+
+    // mobi reward video manager
+    public static final String CLA_MOBIVIDEOS = "com.itech.mobile.MobiReVideos";
 }

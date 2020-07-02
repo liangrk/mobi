@@ -19,7 +19,7 @@ public class InterstitialActivity extends BaseActivity {
 
     @Override
     protected String setUnitId() {
-        return AdUnitId.INTERSTITIAL_ID;
+        return "A3F1EC9EE2AF462C8AA2A74AD883CCE3";
     }
 
     @Override

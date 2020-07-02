@@ -1,12 +1,20 @@
 package com.winghong.aarshell;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.blankj.utilcode.constant.PermissionConstants;
 import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.PermissionUtils;
+import com.blankj.utilcode.util.ToastUtils;
+import com.itech.component.MobiReVideos;
+import com.itech.export.MobiErrorCode;
+import com.itech.export.MobiReVideoListener;
+import com.itech.export.MobiReward;
+
+import java.util.Set;
 
 /**
  * 应
@@ -14,6 +22,8 @@ import com.blankj.utilcode.util.PermissionUtils;
  * 而后调用.
  */
 public class LogicActivity extends AppCompatActivity {
+
+    private MobiReVideos videos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +64,65 @@ public class LogicActivity extends AppCompatActivity {
     }
 
     public void loadRewardVideo(View view) {
-
+        if (videos.isLoaded()){
+            videos.showVideo();
+        }else {
+            System.out.println("not video load...");
+            Set<MobiReward> availableRewards = videos.getAvailableRewards();
+            System.out.println("存在可用的video?:"+availableRewards.isEmpty());
+        }
     }
+
+//    @Override
+//    protected String setUnitId() {
+//        return "A3F1EC9EE2AF462C8AA2A74AD883CCE3";
+//    }
+//
+//    @Override
+//    protected void logic() {
+//        ToastUtils.showLong("mobi init success");
+//        videos = new MobiReVideos(AdUnitId.REWARDED_VIDEO);
+//        videos.setReVideoListener(new MobiReVideoListener() {
+//            @Override
+//            public void onReVideoLoadSuccess(@NonNull String adUnitId) {
+//                toLog("onReVideoLoadSuccess");
+//            }
+//
+//            @Override
+//            public void onReVideoLoadFailure(@NonNull String adUnitId, @NonNull MobiErrorCode errorCode) {
+//                toLog("onReVideoLoadFailure");
+//            }
+//
+//            @Override
+//            public void onReVideoStarted(@NonNull String adUnitId) {
+//                toLog("onReVideoStarted");
+//            }
+//
+//            @Override
+//            public void onReVideoPlaybackError(@NonNull String adUnitId, @NonNull MobiErrorCode errorCode) {
+//                toLog("onReVideoPlaybackError");
+//            }
+//
+//            @Override
+//            public void onReVideoClicked(@NonNull String adUnitId) {
+//                toLog("onReVideoClicked");
+//            }
+//
+//            @Override
+//            public void onReVideoDownStart(@NonNull String adUnitId) {
+//                toLog("onReVideoDownStart");
+//            }
+//
+//            @Override
+//            public void onReVideoClosed(@NonNull String adUnitId) {
+//                toLog("onReVideoClosed");
+//            }
+//
+//            @Override
+//            public void onReVideoCompleted(@NonNull Set<String> adUnitIds, @NonNull MobiReward reward) {
+//                toLog("onReVideoCompleted");
+//            }
+//        });
+//        videos.loadVideo();
+//    }
 }
