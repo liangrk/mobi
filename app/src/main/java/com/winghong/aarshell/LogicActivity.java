@@ -1,20 +1,13 @@
 package com.winghong.aarshell;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.blankj.utilcode.constant.PermissionConstants;
 import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.PermissionUtils;
-import com.blankj.utilcode.util.ToastUtils;
 import com.itech.component.MobiReVideos;
-import com.itech.export.MobiErrorCode;
-import com.itech.export.MobiReVideoListener;
-import com.itech.export.MobiReward;
-
-import java.util.Set;
 
 /**
  * 应
@@ -64,13 +57,7 @@ public class LogicActivity extends AppCompatActivity {
     }
 
     public void loadRewardVideo(View view) {
-        if (videos.isLoaded()){
-            videos.showVideo();
-        }else {
-            System.out.println("not video load...");
-            Set<MobiReward> availableRewards = videos.getAvailableRewards();
-            System.out.println("存在可用的video?:"+availableRewards.isEmpty());
-        }
+        ActivityUtils.startActivity(RewardActivity.class);
     }
 
 //    @Override

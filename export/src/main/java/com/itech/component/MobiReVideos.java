@@ -1,12 +1,11 @@
 package com.itech.component;
 
+import android.app.Activity;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 
 import com.itech.constants.RConstants;
 import com.itech.core.PluginManager;
 import com.itech.core.Reflection;
-import com.itech.export.MediationSettings;
 import com.itech.export.MobiReVideoListener;
 import com.itech.export.MobiReward;
 
@@ -24,7 +23,6 @@ public class MobiReVideos {
 
     private String unitId;
     private Class<?> videoUtils;
-    private Object set;
 
     public MobiReVideos(@NonNull String unitId) {
         this.unitId = unitId;
@@ -49,37 +47,47 @@ public class MobiReVideos {
 
     public boolean isLoaded() {
         try {
-            new Reflection.MethodBuilder(null, "hasVideo")
+            return (boolean) new Reflection.MethodBuilder(null,"hasVideo")
                     .setStatic(videoUtils)
                     .setAccessible()
-                    .addParam(String.class, unitId)
+                    .addParam(String.class,unitId)
                     .execute();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();
         }
         return false;
     }
 
-    public void loadVideo() {
-        loadVideo(null);
+    public void loadVideo(@NonNull Activity activity) {
+        loadVideo(activity, this.unitId);
     }
 
-    public void loadVideo(@Nullable MediationSettings... settings) {
+    public void loadVideo(@NonNull Activity activity, String unitId) {
         try {
-            new Reflection.MethodBuilder(null, "loadVideo")
+            new Reflection.MethodBuilder(null, "supportLoad")
                     .setStatic(videoUtils)
                     .setAccessible()
+                    .addParam(Activity.class, activity)
                     .addParam(String.class, unitId)
-                    .addParam(MediationSettings[].class, settings)
                     .execute();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+//    public void loadVideo(@Nullable MediationSettings... settings) {
+//        try {
+//            new Reflection.MethodBuilder(null, "loadVideo")
+//                    .setStatic(videoUtils)
+//                    .setAccessible()
+//                    .addParam(String.class, unitId)
+//                    .addParam(MediationSettings[].class, settings)
+//                    .execute();
+//        } catch (ClassNotFoundException e) {
+//            e.printStackTrace();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
 
     public Set<MobiReward> getAvailableRewards() {
         try {
@@ -95,16 +103,16 @@ public class MobiReVideos {
         return null;
     }
 
-//    public void loadVideo(@NonNull Activity activity,){
-//
-//    }
+    public void onDestroy() {
+        setReVideoListener(null);
+    }
 
     public void setReVideoListener(MobiReVideoListener listener) {
         try {
-            new Reflection.MethodBuilder(null,"setReVideoListener")
-                .setStatic(videoUtils)
+            new Reflection.MethodBuilder(null, "setReVideoListener")
+                    .setStatic(videoUtils)
                     .setAccessible()
-                    .addParam(MobiReVideoListener.class,listener)
+                    .addParam(MobiReVideoListener.class, listener)
                     .execute();
         } catch (Exception e) {
             e.printStackTrace();
