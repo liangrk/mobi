@@ -41,15 +41,20 @@ public class RewardActivity extends BaseActivity {
             ToastUtils.showShort("mobi 还未初始化完成");
             return;
         }
-        System.out.println("hasVideo????"+videos.isLoaded());
-        if (videos.isLoaded()){
-            videos.showVideo();
+        System.out.println("hasVideo????"+videos.isLoaded(AdUnitId.REWARDED_VIDEO));
+        if (videos.isLoaded(AdUnitId.REWARDED_VIDEO)){
+            videos.showVideo(AdUnitId.REWARDED_VIDEO);
         }
         //setInfo(videos.getAvailableRewards().size()+"");
     }
 
     public void reloadVideo(View view) {
-
+        if (videos == null){
+            return;
+        }
+        if (videos.isLoaded(AdUnitId.REWARDED_VIDEO_TWO)){
+            videos.showVideo(AdUnitId.REWARDED_VIDEO_TWO);
+        }
     }
 
     @Override
@@ -64,21 +69,23 @@ public class RewardActivity extends BaseActivity {
 
     @Override
     protected void logic() {
-        videos = new MobiReVideos(AdUnitId.REWARDED_VIDEO);
+        videos = new MobiReVideos();
 
         videos.setReVideoListener(new MobiReVideoListener() {
             @Override
             public void onReVideoLoadSuccess(@NonNull String adUnitId) {
                 toLog("onReVideoLoadSuccess");
                 ToastUtils.showShort("广告已加载");
-                setInfo(videos.getAvailableRewards().size()+"");
+                setInfo(videos.getAvailableRewards(AdUnitId.REWARDED_VIDEO).size()+"\n86000980986C4C36BE0B2E5BF931CF28可用的:"+
+                        videos.getAvailableRewards(AdUnitId.REWARDED_VIDEO_TWO).size());
             }
 
             @Override
             public void onReVideoLoadFailure(@NonNull String adUnitId, @NonNull MobiErrorCode errorCode) {
                 toLog("onReVideoLoadFailure");
                 ToastUtils.showShort("广告加载失败"+errorCode.toString()+","+errorCode.getIntCode());
-                setInfo(videos.getAvailableRewards().size()+"");
+                setInfo(videos.getAvailableRewards(AdUnitId.REWARDED_VIDEO).size()+"\n86000980986C4C36BE0B2E5BF931CF28可用的:"+
+                        videos.getAvailableRewards(AdUnitId.REWARDED_VIDEO_TWO).size());
             }
 
             @Override
@@ -104,16 +111,19 @@ public class RewardActivity extends BaseActivity {
             @Override
             public void onReVideoClosed(@NonNull String adUnitId) {
                 toLog("onReVideoClosed");
+                videos.loadVideo(RewardActivity.this,AdUnitId.REWARDED_VIDEO_TWO);
             }
 
             @Override
             public void onReVideoCompleted(@NonNull Set<String> adUnitIds, @NonNull MobiReward reward) {
                 toLog("onReVideoCompleted");
-                videos.loadVideo(RewardActivity.this);
-                toLog("看完了 再整一个");
-                setInfo(videos.getAvailableRewards().size()+"");
+//                videos.loadVideo(RewardActivity.this,AdUnitId.REWARDED_VIDEO);
+//                toLog("看完了 再整一个");
+//                setInfo(videos.getAvailableRewards(AdUnitId.REWARDED_VIDEO).size()+"" +
+//                        "\n 86000980986C4C36BE0B2E5BF931CF28可用的:"+videos.getAvailableRewards(AdUnitId.REWARDED_VIDEO_TWO).size());
             }
         });
-        videos.loadVideo(RewardActivity.this);
+        videos.loadVideo(RewardActivity.this,AdUnitId.REWARDED_VIDEO);
+        videos.loadVideo(RewardActivity.this,AdUnitId.REWARDED_VIDEO_TWO);
     }
 }

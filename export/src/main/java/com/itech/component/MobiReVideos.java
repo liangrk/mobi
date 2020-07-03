@@ -21,11 +21,9 @@ import java.util.Set;
  */
 public class MobiReVideos {
 
-    private String unitId;
     private Class<?> videoUtils;
 
-    public MobiReVideos(@NonNull String unitId) {
-        this.unitId = unitId;
+    public MobiReVideos() {
         try {
             videoUtils = PluginManager.getInstance().getClassLoader().loadClass(RConstants.CLA_MOBIVIDEOS);
         } catch (ClassNotFoundException e) {
@@ -33,7 +31,7 @@ public class MobiReVideos {
         }
     }
 
-    public void showVideo() {
+    public void showVideo(@NonNull String unitId) {
         try {
             new Reflection.MethodBuilder(null, "showVideo")
                     .setStatic(videoUtils)
@@ -45,7 +43,7 @@ public class MobiReVideos {
         }
     }
 
-    public boolean isLoaded() {
+    public boolean isLoaded(@NonNull String unitId) {
         try {
             return (boolean) new Reflection.MethodBuilder(null,"hasVideo")
                     .setStatic(videoUtils)
@@ -56,10 +54,6 @@ public class MobiReVideos {
             e.printStackTrace();
         }
         return false;
-    }
-
-    public void loadVideo(@NonNull Activity activity) {
-        loadVideo(activity, this.unitId);
     }
 
     public void loadVideo(@NonNull Activity activity, String unitId) {
@@ -89,7 +83,7 @@ public class MobiReVideos {
 //        }
 //    }
 
-    public Set<MobiReward> getAvailableRewards() {
+    public Set<MobiReward> getAvailableRewards(@NonNull String unitId) {
         try {
             Object set = new Reflection.MethodBuilder(null, "getAvailableRewards")
                     .setStatic(videoUtils)
