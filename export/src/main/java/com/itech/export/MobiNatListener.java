@@ -10,10 +10,19 @@ import android.view.View;
  *     @desc   :
  * </pre>
  */
-public interface MobiNatiNetworkListener {
-    void onNatiLoad();
+public interface MobiNatListener {
+    void onNatiLoad(View nativeView);
+
     void onNatiFail(NatiErrorCode errorCode);
 
+    /**
+     * @param view maybe null
+     */
     void onImpression(View view);
+
+    /**
+     * TODO: maybe not call.
+     * @param view
+     */
     void onClick(View view);
 }

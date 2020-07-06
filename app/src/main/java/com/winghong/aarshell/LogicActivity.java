@@ -49,7 +49,7 @@ public class LogicActivity extends AppCompatActivity {
     }
 
     public void loadNative(View view) {
-
+        ActivityUtils.startActivity(NativeActivity.class);
     }
 
     public void loadNativeVideo(View view) {

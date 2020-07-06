@@ -15,7 +15,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".RewardActivity"></activity>
+        <activity android:name=".NativeActivity"></activity>
+        <activity android:name=".RewardActivity" />
         <activity android:name=".InterstitialActivity" />
         <activity
             android:name=".BannerActivity"
