@@ -1,6 +1,16 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.itech">
 
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission
+        android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission
+        android:name="android.permission.READ_PHONE_STATE" />
+
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <!--<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>-->
+
     <application>
         <activity
             android:name="com.itech.mobile.MbActivity"
@@ -27,7 +37,7 @@
 
         <provider
             android:name="com.itech.download.DownloadFileProvider"
-            android:authorities="${applicationId}.DownloadFileProvider"
+            android:authorities="com.itech.download.DownloadFileProvider.fileProvider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data

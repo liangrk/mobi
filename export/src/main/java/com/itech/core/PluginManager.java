@@ -24,6 +24,8 @@ public class PluginManager {
 
     private ClassLoader classLoader;
 
+    private Context hostContext;
+
     private PluginManager() {
     }
 
@@ -82,9 +84,13 @@ public class PluginManager {
         }
         LoadedPlugin loadedPlugin = instance.getLoadedPlugin(RConstants.PKG_SDK);
         classLoader = loadedPlugin.getClassLoader();
+
+        hostContext = com.didi.virtualapk.PluginManager.getInstance(context).getHostContext();
     }
 
     public ClassLoader getClassLoader() {
         return classLoader;
     }
+
+    public Context getHostContext(){ return hostContext; }
 }

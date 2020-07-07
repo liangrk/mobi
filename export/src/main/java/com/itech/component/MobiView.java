@@ -237,6 +237,8 @@ public class MobiView extends FrameLayout {
             mobiViewClass = classLoader.loadClass(RConstants.CLA_MOBIVIEW);
             invokeObject = mobiViewClass.getConstructor(Context.class)
                     .newInstance(context);
+            mobiViewClass.getMethod("setHostContext",Context.class)
+                    .invoke(invokeObject,PluginManager.getInstance().getHostContext());
             engineInit = true;
         } catch (ClassNotFoundException | NoSuchMethodException | IllegalAccessException | InstantiationException | InvocationTargetException e) {
             e.printStackTrace();
