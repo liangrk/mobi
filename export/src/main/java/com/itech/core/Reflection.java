@@ -7,6 +7,8 @@ package com.itech.core;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import com.blankj.utilcode.util.ConvertUtils;
+
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -67,10 +69,8 @@ public class Reflection {
 
         @NonNull
         public MethodBuilder setStatic(@NonNull final Class<?> clazz) {
-
             mIsStatic = true;
             mClass = clazz;
-
             return this;
         }
 

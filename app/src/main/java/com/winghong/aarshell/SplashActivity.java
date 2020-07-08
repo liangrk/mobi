@@ -130,6 +130,9 @@ public class SplashActivity extends BaseActivity {
             @Override
             public void onSkip() {
                 toLog("onSkip");
+                if (!SplashActivity.this.isDestroyed()){
+                    SplashActivity.this.finish();
+                }
             }
 
             @Override

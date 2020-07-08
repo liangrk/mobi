@@ -48,24 +48,24 @@ public class LogicActivity extends AppCompatActivity {
     }
 
     public void loadSplash(View view) {
-        //ActivityUtils.startActivity(SplashActivity.class);
+        ActivityUtils.startActivity(SplashActivity.class);
 
-        try {
-            Intent mIntent = new Intent().setAction(Intent.ACTION_VIEW);
-            String path = "/storage/emulated/0/Android/data/com.winghong.aarshell/cache/download/public/2c6b1c52f7a8368e4f75cac311a26b03.apk";
-            File file = new File(path);
-//            if (!file.exists()){
-//                PrintLog.toLog("path:"+path);
-//                ToastUtils.showShort("文件不存在");
-//            }
-            System.out.println("文件存在:"+file.exists());
-            setIntentDataAndType(this, mIntent, getMIMEType(file), file,
-                    false, "com.itech.download.DownloadFileProvider.fileProvider");
-            mIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(mIntent);
-        }catch (Exception e){
-            e.printStackTrace();
-        }
+//        try {
+//            Intent mIntent = new Intent().setAction(Intent.ACTION_VIEW);
+//            String path = "/storage/emulated/0/Android/data/com.winghong.aarshell/cache/download/public/2c6b1c52f7a8368e4f75cac311a26b03.apk";
+//            File file = new File(path);
+////            if (!file.exists()){
+////                PrintLog.toLog("path:"+path);
+////                ToastUtils.showShort("文件不存在");
+////            }
+//            System.out.println("文件存在:"+file.exists());
+//            setIntentDataAndType(this, mIntent, getMIMEType(file), file,
+//                    false, "com.itech.download.DownloadFileProvider.fileProvider");
+//            mIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//            startActivity(mIntent);
+//        }catch (Exception e){
+//            e.printStackTrace();
+//        }
     }
 
     public void loadBanner(View view) {
