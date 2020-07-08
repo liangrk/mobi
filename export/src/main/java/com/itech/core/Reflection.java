@@ -7,8 +7,6 @@ package com.itech.core;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import com.blankj.utilcode.util.ConvertUtils;
-
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -18,12 +16,17 @@ import java.util.List;
 
 public class Reflection {
     public static class MethodBuilder {
-        @Nullable private final Object mInstance;
-        @NonNull private final String mMethodName;
-        @Nullable private Class<?> mClass;
+        @Nullable
+        private final Object mInstance;
+        @NonNull
+        private final String mMethodName;
+        @Nullable
+        private Class<?> mClass;
 
-        @NonNull private List<Class<?>> mParameterClasses;
-        @NonNull private List<Object> mParameters;
+        @NonNull
+        private List<Class<?>> mParameterClasses;
+        @NonNull
+        private List<Object> mParameters;
         private boolean mIsAccessible;
         private boolean mIsStatic;
 
@@ -40,7 +43,7 @@ public class Reflection {
 
         @NonNull
         public <T> MethodBuilder addParam(@NonNull final Class<T> clazz,
-                @Nullable final T parameter) {
+                                          @Nullable final T parameter) {
 
             mParameterClasses.add(clazz);
             mParameters.add(parameter);
@@ -50,7 +53,7 @@ public class Reflection {
 
         @NonNull
         public MethodBuilder addParam(@NonNull final String className,
-                @Nullable final Object parameter) throws ClassNotFoundException {
+                                      @Nullable final Object parameter) throws ClassNotFoundException {
 
             final Class<?> clazz = Class.forName(className);
 
@@ -107,7 +110,7 @@ public class Reflection {
 
     @Nullable
     public static Method getDeclaredMethodWithTraversal(@Nullable final Class<?> clazz,
-            @NonNull final String methodName, @NonNull final Class<?>... parameterTypes)
+                                                        @NonNull final String methodName, @NonNull final Class<?>... parameterTypes)
             throws NoSuchMethodException {
 
         Class<?> currentClass = clazz;
@@ -135,7 +138,7 @@ public class Reflection {
 
     @NonNull
     public static <T> T instantiateClassWithEmptyConstructor(@NonNull final String className,
-            @NonNull final Class<? extends T> superclass)
+                                                             @NonNull final Class<? extends T> superclass)
             throws ClassNotFoundException, NoSuchMethodException, IllegalAccessException,
             InvocationTargetException, InstantiationException, NullPointerException {
 
@@ -149,8 +152,8 @@ public class Reflection {
 
     @NonNull
     public static <T> T instantiateClassWithConstructor(@NonNull final String className,
-            @NonNull final Class<? extends T> superClass, @NonNull final Class[] classes,
-            @NonNull final Object[] parameters)
+                                                        @NonNull final Class<? extends T> superClass, @NonNull final Class[] classes,
+                                                        @NonNull final Object[] parameters)
             throws ClassNotFoundException, NoSuchMethodException, IllegalAccessException,
             InvocationTargetException, InstantiationException {
 

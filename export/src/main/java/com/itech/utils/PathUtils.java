@@ -1,4 +1,4 @@
-package com.itech.common.utils;
+package com.itech.utils;
 
 import android.content.Context;
 import android.os.Environment;

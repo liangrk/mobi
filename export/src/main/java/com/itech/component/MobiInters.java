@@ -28,12 +28,10 @@ public class MobiInters {
         this.activity = activity;
 
         try {
-            interClass = PluginManager.getInstance()
-                    .getClassLoader()
-                    .loadClass(RConstants.CLA_MOBIINTER);
-            invokeObj = interClass.getConstructor(Activity.class, String.class)
-                    .newInstance(activity, unitId);
-        } catch (ClassNotFoundException | NoSuchMethodException | IllegalAccessException | InstantiationException | InvocationTargetException e) {
+            interClass = PluginManager.getClass(RConstants.CLA_MOBIINTER);
+            invokeObj = interClass.getConstructor(PluginManager.getParamsType(Activity.class, String.class))
+                    .newInstance(PluginManager.getObjectArr(activity, unitId));
+        } catch (NoSuchMethodException | IllegalAccessException | InstantiationException | InvocationTargetException e) {
             e.printStackTrace();
         }
     }
@@ -41,8 +39,8 @@ public class MobiInters {
     public void setIntersListener(@NonNull IntersListener listener) {
         if (isBreak()) return;
         try {
-            Method setListenerMethod = interClass.getMethod("setIntersListener", IntersListener.class);
-            setListenerMethod.invoke(invokeObj, listener);
+            Method setListenerMethod = interClass.getMethod("setIntersListener", PluginManager.getParamsType(IntersListener.class));
+            setListenerMethod.invoke(invokeObj, PluginManager.getObjectArr(listener));
         } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
             e.printStackTrace();
         }

@@ -2,11 +2,6 @@ package com.winghong.aarshell;
 
 import android.support.v7.app.AppCompatActivity;
 
-import com.itech.common.MobiLog;
-import com.itech.common.Mobip;
-import com.itech.common.SdkConfigurationp;
-import com.itech.common.SdkInitializationListener;
-
 /**
  * <pre>
  *     @author : wing-hong
@@ -21,17 +16,18 @@ public abstract class BaseActivity extends AppCompatActivity {
     public void setContentView(int layoutResID) {
         super.setContentView(layoutResID);
 
-        SdkConfigurationp configurationp = new SdkConfigurationp.Builder(setUnitId())
-                .withLogLevel(MobiLog.LogLevel.DEBUG)
-                .withDelayImprFirstOpen(5000)
-                .build();
-
-        Mobip.initializeSdk(this, configurationp, new SdkInitializationListener() {
-            @Override
-            public void onInitializationFinished() {
-                logic();
-            }
-        });
+        logic();
+//        SdkConfiguration configuration = new SdkConfiguration.Builder(setUnitId())
+//                .withLogLevel(MobiLog.LogLevel.DEBUG)
+//                .withDelayImprFirstOpen(5000)
+//                .build();
+//
+//        MobiSdk.initializeSdk(this, configuration, new SdkInitializationListener() {
+//            @Override
+//            public void onInitializationFinished() {
+//                logic();
+//            }
+//        });
     }
 
     protected abstract String setUnitId();

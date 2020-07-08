@@ -33,14 +33,12 @@ public class MobiNative {
 
     private void setStaticRenderer(ViewBinder binder) {
         try {
-            Class<?> aClass = PluginManager.getInstance()
-                    .getClassLoader()
-                    .loadClass(RConstants.CLA_MOBI_STATIC_RENDERER);
-            Object staticRenderer = aClass.getConstructor(ViewBinder.class)
-                    .newInstance(binder);
-            natiClass.getMethod("registerAdRenderer", Object.class)
-                    .invoke(natInstance, staticRenderer);
-        } catch (ClassNotFoundException | NoSuchMethodException | IllegalAccessException
+            Class<?> aClass = PluginManager.getClass(RConstants.CLA_MOBI_STATIC_RENDERER);
+            Object staticRenderer = aClass.getConstructor(PluginManager.getParamsType(ViewBinder.class))
+                    .newInstance(PluginManager.getObjectArr(binder));
+            natiClass.getMethod("registerAdRenderer", PluginManager.getParamsType(Object.class))
+                    .invoke(natInstance, PluginManager.getObjectArr(staticRenderer));
+        } catch (NoSuchMethodException | IllegalAccessException
                 | InstantiationException | InvocationTargetException e) {
             e.printStackTrace();
         }
@@ -48,13 +46,13 @@ public class MobiNative {
 
     private void setVideoRenderer(MediaViewBinder binder) {
         try {
-            Class<?> aClass = PluginManager.getInstance()
-                    .getClassLoader()
-                    .loadClass(RConstants.CLA_MOBI_VIDEO_RENDERER);
-            Object videoRenderer = aClass.getConstructor(MediaViewBinder.class).newInstance(binder);
-            natiClass.getMethod("registerAdRenderer", Object.class)
-                    .invoke(natInstance, videoRenderer);
-        } catch (ClassNotFoundException | NoSuchMethodException | IllegalAccessException
+            Class<?> aClass = PluginManager.getClass(RConstants.CLA_MOBI_VIDEO_RENDERER);
+            Object videoRenderer = aClass.getConstructor(
+                    PluginManager.getParamsType(MediaViewBinder.class))
+                    .newInstance(PluginManager.getObjectArr(binder));
+            natiClass.getMethod("registerAdRenderer", PluginManager.getParamsType(Object.class))
+                    .invoke(natInstance, PluginManager.getObjectArr(videoRenderer));
+        } catch (NoSuchMethodException | IllegalAccessException
                 | InstantiationException | InvocationTargetException e) {
             e.printStackTrace();
         }
@@ -76,11 +74,10 @@ public class MobiNative {
         }
     }
 
-    // 最后发起请求
     public void makeRequest(RequestParameters parameters) {
         try {
-            natiClass.getMethod("makeRequest", RequestParameters.class)
-                    .invoke(natInstance, parameters);
+            natiClass.getMethod("makeRequest", PluginManager.getParamsType(RequestParameters.class))
+                    .invoke(natInstance, PluginManager.getObjectArr(parameters));
         } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
             e.printStackTrace();
         }
@@ -111,14 +108,12 @@ public class MobiNative {
 
     private void initNati(@NonNull Context context, @NonNull String unitId, @NonNull MobiNatListener listener) {
         try {
-            natiClass = PluginManager.getInstance()
-                    .getClassLoader()
-                    .loadClass(RConstants.CLA_MOBI_NATI);
-            natInstance = natiClass.getConstructor(Context.class, String.class)
-                    .newInstance(context, unitId);
-            natiClass.getMethod("setNatListener",MobiNatListener.class)
-                    .invoke(natInstance,listener);
-        } catch (ClassNotFoundException | NoSuchMethodException | IllegalAccessException |
+            natiClass = PluginManager.getClass(RConstants.CLA_MOBI_NATI);
+            natInstance = natiClass.getConstructor(PluginManager.getParamsType(Context.class, String.class))
+                    .newInstance(PluginManager.getObjectArr(context, unitId));
+            natiClass.getMethod("setNatListener",PluginManager.getParamsType(MobiNatListener.class))
+                    .invoke(natInstance,PluginManager.getObjectArr(listener));
+        } catch (NoSuchMethodException | IllegalAccessException |
                 InstantiationException | InvocationTargetException e) {
             e.printStackTrace();
         }

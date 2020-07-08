@@ -1,6 +1,8 @@
-package com.itech.common;
+package com.itech.component;
 
 import android.support.annotation.NonNull;
+
+import com.itech.common.MobiLog;
 
 /**
  * <pre>
@@ -10,11 +12,11 @@ import android.support.annotation.NonNull;
  *     @desc   :
  * </pre>
  */
-public class SdkConfigurationp {
+public class SdkConfiguration {
 
-    private SdkConfigurationp(@NonNull String unitId,
-                              long delayImprFirstOpen,
-                              MobiLog.LogLevel logLevel) {
+    private SdkConfiguration(@NonNull String unitId,
+                             long delayImprFirstOpen,
+                             MobiLog.LogLevel logLevel) {
         this.unitId = unitId;
         this.delayImprFirstOpen = delayImprFirstOpen;
         this.level = logLevel;
@@ -67,8 +69,8 @@ public class SdkConfigurationp {
             return this;
         }
 
-        public SdkConfigurationp build() {
-            return new SdkConfigurationp(unitId, delayImprFirstOpen, level);
+        public SdkConfiguration build() {
+            return new SdkConfiguration(unitId, delayImprFirstOpen, level);
         }
     }
 }

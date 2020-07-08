@@ -24,11 +24,7 @@ public class MobiReVideos {
     private Class<?> videoUtils;
 
     public MobiReVideos() {
-        try {
-            videoUtils = PluginManager.getInstance().getClassLoader().loadClass(RConstants.CLA_MOBIVIDEOS);
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
+        videoUtils = PluginManager.getClass(RConstants.CLA_MOBIVIDEOS);
     }
 
     public void showVideo(@NonNull String unitId) {

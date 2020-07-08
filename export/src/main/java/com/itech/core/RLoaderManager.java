@@ -1,7 +1,5 @@
 package com.itech.core;
 
-import com.itech.constants.RConstants;
-
 /**
  * <pre>
  *     @author : wing-hong

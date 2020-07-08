@@ -1,9 +1,10 @@
-package com.itech.common.utils;
+package com.itech.utils;
 
 import android.content.Context;
 import android.support.annotation.RawRes;
 import android.text.TextUtils;
 import android.util.Log;
+
 
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -25,8 +26,8 @@ public class ResourceUtils {
     private static int sBufferSize = 524288;
 
     public static boolean copyRaw(Context context, @RawRes int raw, String path) {
-        return writeFileFromIS(path,
-                context.getResources().openRawResource(raw));
+        InputStream is = context.getApplicationContext().getResources().openRawResource(raw);
+        return writeFileFromIS(path, is);
     }
 
     static boolean writeFileFromIS(final String filePath, final InputStream is) {
@@ -54,7 +55,7 @@ public class ResourceUtils {
     public static boolean writeFileFromIS(final File file,
                                           final InputStream is,
                                           final boolean append) {
-        if (is == null || createOrExistsFile(file)) {
+        if (is == null || !createOrExistsFile(file)) {
             Log.e("FileIOUtils", "create file <" + file + "> failed.");
             return false;
         }

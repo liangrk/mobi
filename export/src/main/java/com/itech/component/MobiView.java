@@ -113,8 +113,9 @@ public class MobiView extends FrameLayout {
             return;
         }
         try {
-            Method setUnitIdMethod = mobiViewClass.getMethod("setAdUnitId", String.class);
-            setUnitIdMethod.invoke(invokeObject, unitId);
+            Method setUnitIdMethod = mobiViewClass.getMethod("setAdUnitId",
+                    PluginManager.getParamsType(String.class));
+            setUnitIdMethod.invoke(invokeObject, PluginManager.getObjectArr(unitId));
         } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
             e.printStackTrace();
         }
@@ -128,8 +129,8 @@ public class MobiView extends FrameLayout {
             return;
         }
         try {
-            Method setASizeMethod = mobiViewClass.getMethod("setASize", int.class);
-            setASizeMethod.invoke(invokeObject, mobiSize.getSize());
+            Method setASizeMethod = mobiViewClass.getMethod("setASize", PluginManager.getParamsType(int.class));
+            setASizeMethod.invoke(invokeObject, PluginManager.getObjectArr(mobiSize.getSize()));
         } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
             e.printStackTrace();
         }
@@ -168,15 +169,6 @@ public class MobiView extends FrameLayout {
     }
 
     public Activity getActivity() {
-//        if (mobiViewClass == null){
-//            return (Activity) context;
-//        }
-//        try {
-//            Method getActivityMethod = mobiViewClass.getMethod("getActivity");
-//            return (Activity) getActivityMethod.invoke(invokeObject);
-//        } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
-//            e.printStackTrace();
-//        }
         return (Activity) context;
     }
 
@@ -189,8 +181,9 @@ public class MobiView extends FrameLayout {
             return;
         }
         try {
-            Method setBanListenerMethod = mobiViewClass.getMethod("setBanListener", BanListener.class);
-            setBanListenerMethod.invoke(invokeObject, exportListener);
+            Method setBanListenerMethod = mobiViewClass.getMethod("setBanListener",
+                    PluginManager.getParamsType(BanListener.class));
+            setBanListenerMethod.invoke(invokeObject, PluginManager.getObjectArr(exportListener));
         } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
             e.printStackTrace();
         }
@@ -232,15 +225,14 @@ public class MobiView extends FrameLayout {
     }
 
     private void loadWithR() {
-        ClassLoader classLoader = PluginManager.getInstance().getClassLoader();
         try {
-            mobiViewClass = classLoader.loadClass(RConstants.CLA_MOBIVIEW);
-            invokeObject = mobiViewClass.getConstructor(Context.class)
-                    .newInstance(context);
-            mobiViewClass.getMethod("setHostContext",Context.class)
-                    .invoke(invokeObject,PluginManager.getInstance().getHostContext());
+            mobiViewClass = PluginManager.getClass(RConstants.CLA_MOBIVIEW);
+            invokeObject = mobiViewClass.getConstructor(PluginManager.getParamsType(Context.class))
+                    .newInstance(PluginManager.getObjectArr(context));
+            mobiViewClass.getMethod("setHostContext",PluginManager.getParamsType(Context.class))
+                    .invoke(invokeObject,PluginManager.getObjectArr(PluginManager.getInstance().getHostContext()));
             engineInit = true;
-        } catch (ClassNotFoundException | NoSuchMethodException | IllegalAccessException | InstantiationException | InvocationTargetException e) {
+        } catch (NoSuchMethodException | IllegalAccessException | InstantiationException | InvocationTargetException e) {
             e.printStackTrace();
         }
     }

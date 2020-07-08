@@ -4,20 +4,14 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
 import com.blankj.utilcode.util.ColorUtils;
-import com.itech.common.MobiLog;
-import com.itech.common.Mobip;
-import com.itech.common.SdkConfigurationp;
-import com.itech.common.SdkInitializationListener;
 import com.itech.core.PluginManager;
 import com.itech.export.MobiSplashListener;
-import com.itech.export.SplashErrorCode;
-import com.itech.splash.RMobiSplash;
+import com.itech.component.RMobiSplash;
 
 public class SplashActivity extends BaseActivity {
 

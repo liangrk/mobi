@@ -1,13 +1,11 @@
-package com.itech.splash;
+package com.itech.component;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
 
-import com.itech.R;
 import com.itech.constants.RConstants;
 import com.itech.core.PluginManager;
 import com.itech.export.MobiSplashListener;
-import com.itech.export.ViewBinder;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
