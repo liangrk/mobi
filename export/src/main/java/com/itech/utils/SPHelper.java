@@ -26,4 +26,14 @@ public class SPHelper {
     public static String getString(String key) {
         return getSharedPreferences().getString(key, "");
     }
+
+    public static boolean putLong(String key,long value){
+        return getSharedPreferences().edit()
+                .putLong(key,value)
+                .commit();
+    }
+
+    public static long getLong(String key){
+        return getSharedPreferences().getLong(key,0L);
+    }
 }

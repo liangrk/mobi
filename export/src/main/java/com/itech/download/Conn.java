@@ -108,6 +108,26 @@ public class Conn {
     // public void sendMuPa(int pv, int nv, String ime, String androidId, String mid) {
     public void sendMuPa() {
         setConfiguration();
+        helper.startTask(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    String jsonStr = sendRequest(jsonMap,"/m/upa");
+                    System.out.println("检测接口2:"+jsonStr);
+                    if (TextUtils.isEmpty(jsonStr)){
+                        return;
+                    }
+                    JSONObject jsonObject = new JSONObject(jsonStr);
+                    JSONObject data = jsonObject.getJSONObject("data");
+                    int res = data.getInt("res");
+                    if (res==1){
+
+                    }
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 
     // public void sendMup(int pv, int nv, String ime, String androidId, String mid, List<String> pkg) {

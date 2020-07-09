@@ -6,6 +6,8 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 import android.support.v4.content.ContextCompat;
 
+import java.util.List;
+
 /**
  * <pre>
  *     @author : wing-hong
@@ -34,5 +36,13 @@ public class AppUtils {
     public static boolean checkPermission(String permission){
         return Build.VERSION.SDK_INT<Build.VERSION_CODES.M ||
                 PackageManager.PERMISSION_GRANTED == ContextCompat.checkSelfPermission(application,permission);
+    }
+
+    /**
+     * 获取所有已安装的apk包名
+     * @return
+     */
+    public static List<String> getInstallInfo(){
+        return null;
     }
 }
