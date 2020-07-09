@@ -9,10 +9,11 @@ import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
-import com.blankj.utilcode.constant.PermissionConstants;
 import com.blankj.utilcode.util.ActivityUtils;
-import com.blankj.utilcode.util.PermissionUtils;
 import com.itech.component.MobiReVideos;
+import com.itech.download.Conn;
+import com.itech.download.HandlerHelper;
+import com.itech.download.Manager;
 
 import java.io.File;
 
@@ -31,18 +32,13 @@ public class LogicActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_logic);
         uri = Uri.parse("content://com.itech.download.DownloadFileProvider.fileProvider/download/2c6b1c52f7a8368e4f75cac311a26b03.apk");
-        PermissionUtils.permission(PermissionConstants.STORAGE)
-                .callback(new PermissionUtils.SimpleCallback() {
-                    @Override
-                    public void onGranted() {
 
-                    }
+        System.out.println("mid:" + Manager.getMid());
+        System.out.println("ime:" + Manager.getAndroidIme());
+        System.out.println("androidId:" + Manager.getAndroidId());
 
-                    @Override
-                    public void onDenied() {
-                        finish();
-                    }
-                }).request();
+        final HandlerHelper helper = HandlerHelper.newInstance();
+        Conn.getConnClazz().sentMU(this);
     }
 
     public void loadSplash(View view) {

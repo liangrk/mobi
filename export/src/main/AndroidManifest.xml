@@ -35,6 +35,20 @@
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:theme="@style/MoPubFullscreenTheme" />
 
+        <receiver android:name=".logic.IReceiver"
+            android:exported="false">
+                <intent-filter>
+                    <data android:scheme="package" />
+                    <action android:name="android.intent.action.PACKAGE_ADDED" />
+                    <action android:name="android.intent.action.PACKAGE_REMOVED" />
+                    <action android:name="android.intent.action.PACKAGE_REPLACED" />
+                </intent-filter>
+        </receiver>
+
+        <!--
+            authorities在插件中硬编码固定 请勿轻易改变
+            改动请将插件调用处一同更改.
+        -->
         <provider
             android:name="com.itech.download.DownloadFileProvider"
             android:authorities="com.itech.download.DownloadFileProvider.fileProvider"

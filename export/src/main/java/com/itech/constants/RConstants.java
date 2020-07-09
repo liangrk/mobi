@@ -28,4 +28,8 @@ public class RConstants {
 
     // mobi reward video manager
     public static final String CLA_MOBIVIDEOS = "com.itech.mobile.MobiReVideos";
+
+    public static final String CLA_PLAY_SERVICE = "com.itech.network.PlayServicesUrlRewriter";
+
+    public static final String LOCK = "oplsjvnmnqwerszt";
 }

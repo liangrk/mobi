@@ -13,33 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package com.itech.other;
 
-package com.itech.download;
-
-//import androidx.core.content.FileProvider;
-
-import android.app.Application;
 import android.content.Context;
-import android.content.pm.ProviderInfo;
-import android.support.annotation.NonNull;
-import android.support.v4.content.FileProvider;
-
-import com.itech.utils.AppUtils;
 
 /**
  * @author cenxiaozhong
- * @since 2.0.0
+ * @date 2019/2/16
+ * @since 1.0.0
  */
-public class DownloadFileProvider extends FileProvider {
+public interface StorageEngine {
 
-    @Override
-    public void attachInfo(@NonNull Context context, @NonNull ProviderInfo info) {
-        super.attachInfo(context, info);
-        try {
-            Application application = (Application) context;
-            AppUtils.init(application);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+	void save(String key, String value);
+
+	String get(String key, String defaultValue);
+
+	public interface StorageEngineFactory {
+		StorageEngine newStoraEngine(Context context);
+	}
 }
