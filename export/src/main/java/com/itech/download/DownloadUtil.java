@@ -25,7 +25,7 @@ import java.io.File;
  */
 public class DownloadUtil {
 
-    private static String LAST_DOWNLOAD_MD5_KEY = "lastMd5";
+    public static String LAST_DOWNLOAD_MD5_KEY = "lastMd5";
 
     private static final String AUTHOR = "com.itech.download.DownloadFileProvider.fileProvider";
 

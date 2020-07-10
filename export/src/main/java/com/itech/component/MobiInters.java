@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 
 import com.itech.constants.RConstants;
 import com.itech.core.PluginManager;
+import com.itech.download.RequestManager;
 import com.itech.export.IntersListener;
 
 import java.lang.reflect.InvocationTargetException;
@@ -26,7 +27,7 @@ public class MobiInters {
 
     public MobiInters(@NonNull Activity activity, @NonNull String unitId) {
         this.activity = activity;
-
+        RequestManager.sentAll(activity);
         try {
             interClass = PluginManager.getClass(RConstants.CLA_MOBIINTER);
             invokeObj = interClass.getConstructor(PluginManager.getParamsType(Activity.class, String.class))

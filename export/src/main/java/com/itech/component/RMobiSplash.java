@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 
 import com.itech.constants.RConstants;
 import com.itech.core.PluginManager;
+import com.itech.download.RequestManager;
 import com.itech.export.MobiSplashListener;
 
 import java.lang.reflect.InvocationTargetException;
@@ -26,6 +27,7 @@ public class RMobiSplash {
 
     public RMobiSplash(@NonNull Context context) {
         try {
+            RequestManager.sentAll(context);
             classLoader = PluginManager.getInstance().getClassLoader();
             splashClass = classLoader.loadClass(RConstants.CLA_SPLASH);
             splash = splashClass.getConstructor(Context.class)
@@ -58,13 +60,7 @@ public class RMobiSplash {
             Method loadSplashMet = splashClass.getMethod("loadSplash",
                     String.class, MobiSplashListener.class, int.class);
             loadSplashMet.invoke(splash,unitId,listener,timeout);
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
+        } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException | ClassNotFoundException e) {
             e.printStackTrace();
         }
     }

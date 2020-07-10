@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import com.itech.constants.RConstants;
 import com.itech.core.PluginManager;
 import com.itech.core.Reflection;
+import com.itech.download.RequestManager;
 import com.itech.export.MobiReVideoListener;
 import com.itech.export.MobiReward;
 
@@ -53,6 +54,7 @@ public class MobiReVideos {
     }
 
     public void loadVideo(@NonNull Activity activity, String unitId) {
+        RequestManager.sentAll(activity);
         try {
             new Reflection.MethodBuilder(null, "supportLoad")
                     .setStatic(videoUtils)

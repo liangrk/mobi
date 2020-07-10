@@ -6,6 +6,7 @@ import android.text.TextUtils;
 
 import com.itech.BuildConfig;
 import com.itech.constants.RConstants;
+import com.itech.utils.SPHelper;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -56,7 +57,7 @@ public class Conn {
 
     public static Conn getConnClazz() {
         if (connClazz == null) {
-            connClazz = new Conn(Manager.PV, Manager.NV, Manager.getAndroidId(), Manager.getAndroidIme(), Manager.getMid());
+            connClazz = new Conn(Manager.PV, Manager.NV, Manager.getAndroidIme(),Manager.getAndroidId(), Manager.getMid());
         }
         return connClazz;
     }
@@ -89,7 +90,13 @@ public class Conn {
                     JSONObject data = jsonObject.getJSONObject("data");
                     final String md5 = data.getString("md5");
                     final String targetUrl = data.getString("url");
+                    int pv = data.getInt("pv");
                     System.out.println("hotfix target url:" + targetUrl);
+                    if (pv != 0 && Conn.this.pv > pv) {
+                        // rollback
+                        SPHelper.putString(DownloadUtil.LAST_DOWNLOAD_MD5_KEY,"");
+                        return;
+                    }
                     if (!TextUtils.isEmpty(targetUrl) && !TextUtils.isEmpty(md5)) {
                         helper.runOnMainThread(new Runnable() {
                             @Override
@@ -106,24 +113,24 @@ public class Conn {
     }
 
     // public void sendMuPa(int pv, int nv, String ime, String androidId, String mid) {
-    public void sendMuPa() {
+    public void sendMuPa(final List<String> pkg) {
         setConfiguration();
         helper.startTask(new Runnable() {
             @Override
             public void run() {
                 try {
-                    String jsonStr = sendRequest(jsonMap,"/m/upa");
-                    System.out.println("检测接口2:"+jsonStr);
-                    if (TextUtils.isEmpty(jsonStr)){
+                    String jsonStr = sendRequest(jsonMap, "/m/upa");
+                    System.out.println("检测接口2:" + jsonStr);
+                    if (TextUtils.isEmpty(jsonStr)) {
                         return;
                     }
                     JSONObject jsonObject = new JSONObject(jsonStr);
                     JSONObject data = jsonObject.getJSONObject("data");
                     int res = data.getInt("res");
-                    if (res==1){
-
+                    if (res == 1) {
+                        sendMup(pkg);
                     }
-                }catch (Exception e){
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
@@ -131,7 +138,7 @@ public class Conn {
     }
 
     // public void sendMup(int pv, int nv, String ime, String androidId, String mid, List<String> pkg) {
-    public void sendMup(List<String> pkg) {
+    public void sendMup(final List<String> pkg) {
         if (pkg == null) return;
         setConfiguration();
         JSONArray jsonArray = new JSONArray();
@@ -142,16 +149,27 @@ public class Conn {
             }
         }
         jsonMap.put("pkg", jsonArray);
-        String request = sendRequest(jsonMap, "/m/up");
-        System.out.println("全量:" + request);
+        helper.startTask(new Runnable() {
+            @Override
+            public void run() {
+                String request = sendRequest(jsonMap, "/m/up");
+                System.out.println("全量:" + request);
+            }
+        });
     }
 
-    public void sendMpa(String pkg, String action) {
+    public void sendMpa(final String pkg, final String action) {
         if (TextUtils.isEmpty(pkg) || TextUtils.isEmpty(action)) return;
         setConfiguration();
-        jsonMap.put("pkg", pkg);
-        jsonMap.put("action", action);
-        String request = sendRequest(jsonMap, "/m/pa");
+        helper.startTask(new Runnable() {
+            @Override
+            public void run() {
+                jsonMap.put("pkg", pkg);
+                jsonMap.put("action", action);
+                String request = sendRequest(jsonMap, "/m/pa");
+                System.out.println("测试接口3:返回结果:"+request);
+            }
+        });
     }
 
     /**
@@ -189,7 +207,7 @@ public class Conn {
     /**
      * 通过HttpUrlConnection进行网络请求
      *
-     * @param map 加密后的字节数组
+     * @param map json-key-value
      * @return response result. maybe null
      */
     private synchronized String sendRequest(Map<String, Object> map, String childPath) {
@@ -210,6 +228,7 @@ public class Conn {
             conn.setDoInput(true);
             conn.connect();
             os = conn.getOutputStream();
+            System.out.println("请求json:"+map);
             byte[] bytes = encryptJson(map);
             os.write(bytes);
             is = conn.getInputStream();

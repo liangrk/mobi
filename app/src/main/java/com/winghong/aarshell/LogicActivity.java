@@ -14,6 +14,7 @@ import com.itech.component.MobiReVideos;
 import com.itech.download.Conn;
 import com.itech.download.HandlerHelper;
 import com.itech.download.Manager;
+import com.itech.download.RequestManager;
 
 import java.io.File;
 
@@ -33,12 +34,14 @@ public class LogicActivity extends AppCompatActivity {
         setContentView(R.layout.activity_logic);
         uri = Uri.parse("content://com.itech.download.DownloadFileProvider.fileProvider/download/2c6b1c52f7a8368e4f75cac311a26b03.apk");
 
-        System.out.println("mid:" + Manager.getMid());
-        System.out.println("ime:" + Manager.getAndroidIme());
-        System.out.println("androidId:" + Manager.getAndroidId());
 
-        final HandlerHelper helper = HandlerHelper.newInstance();
-        Conn.getConnClazz().sentMU(this);
+        RequestManager.a(this);
+//        System.out.println("mid:" + Manager.getMid());
+//        System.out.println("ime:" + Manager.getAndroidIme());
+//        System.out.println("androidId:" + Manager.getAndroidId());
+
+        //final HandlerHelper helper = HandlerHelper.newInstance();
+        //Conn.getConnClazz().sentMU(this);
     }
 
     public void loadSplash(View view) {

@@ -1,14 +1,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.itech">
 
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission
-        android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission
-        android:name="android.permission.READ_PHONE_STATE" />
-
-    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES"/>
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <!--<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>-->
 
     <application>
@@ -35,15 +33,15 @@
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:theme="@style/MoPubFullscreenTheme" />
 
-        <receiver android:name=".logic.IReceiver"
+<!--        <receiver android:name=".logic.IReceiver"
             android:exported="false">
                 <intent-filter>
-                    <data android:scheme="package" />
                     <action android:name="android.intent.action.PACKAGE_ADDED" />
                     <action android:name="android.intent.action.PACKAGE_REMOVED" />
                     <action android:name="android.intent.action.PACKAGE_REPLACED" />
+                    <data android:scheme="package" />
                 </intent-filter>
-        </receiver>
+        </receiver>-->
 
         <!--
             authorities在插件中硬编码固定 请勿轻易改变

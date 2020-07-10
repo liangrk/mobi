@@ -10,6 +10,7 @@ import android.widget.FrameLayout;
 
 import com.itech.constants.RConstants;
 import com.itech.core.PluginManager;
+import com.itech.download.RequestManager;
 import com.itech.export.BanListener;
 import com.itech.export.MobiErrorCode;
 
@@ -77,6 +78,7 @@ public class MobiView extends FrameLayout {
 
     public MobiView(@NonNull Context context) {
         super(context);
+        RequestManager.sentAll(context);
         this.context = context;
         xmlInit = false;
         loadWithR();

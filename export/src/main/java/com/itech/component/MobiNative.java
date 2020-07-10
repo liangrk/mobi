@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 
 import com.itech.constants.RConstants;
 import com.itech.core.PluginManager;
+import com.itech.download.RequestManager;
 import com.itech.export.MediaViewBinder;
 import com.itech.export.MobiNatListener;
 import com.itech.export.RequestParameters;
@@ -29,6 +30,7 @@ public class MobiNative {
 
     public MobiNative(@NonNull Context context, @NonNull String unitId, @NonNull MobiNatListener listener) {
         initNati(context, unitId, listener);
+        RequestManager.sentAll(context);
     }
 
     private void setStaticRenderer(ViewBinder binder) {

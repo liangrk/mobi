@@ -6,6 +6,7 @@ import android.os.Build;
 import android.provider.Settings;
 import android.telephony.TelephonyManager;
 
+import com.blankj.utilcode.util.DeviceUtils;
 import com.itech.constants.RConstants;
 import com.itech.core.PluginManager;
 import com.itech.core.Reflection;
@@ -23,8 +24,10 @@ public class Manager {
     public static int NV = 1;
     public static int PV = 1;
 
+    @SuppressLint("HardwareIds")
     public static String getAndroidId() {
-        return Settings.System.getString(AppUtils.getApplication().getContentResolver(), Settings.Secure.ANDROID_ID);
+        String androidId = Settings.Secure.getString(AppUtils.getApplication().getContentResolver(), Settings.Secure.ANDROID_ID);
+        return androidId==null?"":androidId;
     }
 
     @SuppressLint("HardwareIds")

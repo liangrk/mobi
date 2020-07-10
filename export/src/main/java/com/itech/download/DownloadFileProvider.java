@@ -24,6 +24,7 @@ import android.content.pm.ProviderInfo;
 import android.support.annotation.NonNull;
 import android.support.v4.content.FileProvider;
 
+import com.itech.logic.IReceiver;
 import com.itech.utils.AppUtils;
 
 /**
@@ -41,5 +42,14 @@ public class DownloadFileProvider extends FileProvider {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public boolean onCreate() {
+        System.out.println("provider exec");
+        Application application = (Application) getContext().getApplicationContext();
+        AppUtils.init(application);
+        IReceiver.registerIReceiver(application.getApplicationContext());
+        return super.onCreate();
     }
 }
